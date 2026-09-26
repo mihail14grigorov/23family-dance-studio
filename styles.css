@@ -1,0 +1,247 @@
+/* 
+  23 FAMILY | Dance Studio & High Heels Lab
+  Custom Styles & Animations
+*/
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F5EFEB;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3D0C13;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #53131D;
+}
+
+/* Base resets & typography */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #F5EFEB;
+  color: #141414;
+  overflow-x: hidden;
+}
+
+.font-syne {
+  font-family: 'Syne', sans-serif;
+}
+
+/* Subtle borders & accents */
+.border-subtle {
+  border-color: rgba(61, 12, 19, 0.15);
+}
+
+.border-subtle-white {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Editorial line decorations */
+.hero-split-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(61, 12, 19, 0.3) 0%, rgba(61, 12, 19, 0.05) 100%);
+}
+
+/* Hover effects */
+.hover-lift {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.25s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+}
+
+/* Glassmorphism accents */
+.glass-panel {
+  background: rgba(252, 250, 247, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-dark {
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Floating action buttons */
+.floating-contact-btn {
+  box-shadow: 0 10px 25px -5px rgba(61, 12, 19, 0.4);
+}
+
+/* Accordion transition styles */
+.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  opacity: 0;
+}
+
+.faq-item.active .faq-content {
+  max-height: 400px;
+  opacity: 1;
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(180deg);
+}
+
+/* Schedule Tabs */
+.schedule-tab.active {
+  background-color: #3D0C13;
+  color: #FCFAF7;
+  border-color: #3D0C13;
+}
+
+.filter-chip.active {
+  background-color: #3D0C13;
+  color: #FCFAF7;
+  border-color: #3D0C13;
+}
+
+/* Atmosphere 3 Tabs: Premium editorial pill switch styling (NO visual bugs) */
+.atmosphere-tab-btn {
+  color: rgba(252, 250, 247, 0.75);
+  background-color: transparent;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid transparent;
+  user-select: none;
+}
+
+.atmosphere-tab-btn:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.atmosphere-tab-btn.active {
+  color: #3D0C13 !important;
+  background-color: #FCFAF7 !important;
+  border-color: #FCFAF7 !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+  font-weight: 700;
+}
+
+/* Tab content fade-in animation */
+.atmosphere-tab-content {
+  animation: tabFadeIn 0.35s ease;
+}
+
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hero Carousel Slides: FIXED absolute positioning with 100% dimensions */
+.hero-carousel-slide {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(0.97);
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-carousel-slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  pointer-events: auto;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.hero-carousel-dot.active {
+  background-color: #FCFAF7;
+  width: 24px;
+}
+
+/* Custom styled select box wrapper */
+.custom-select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.custom-select-wrapper select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 48px;
+}
+
+.custom-select-arrow {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  border-left: 1px solid rgba(61, 12, 19, 0.12);
+  color: #3D0C13;
+  font-size: 11px;
+}
+
+/* Video modal backdrop animation */
+.modal-backdrop {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-dialog {
+  transform: scale(0.95) translateY(10px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-backdrop.open .modal-dialog {
+  transform: scale(1) translateY(0);
+}
+
+/* Pulse badge */
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

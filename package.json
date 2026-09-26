@@ -1,0 +1,18 @@
+{
+  "name": "23family-dance-studio",
+  "version": "1.0.0",
+  "description": "23 FAMILY — Официальный сайт танцевальной студии High Heels & Choreo в Москве",
+  "scripts": {
+    "start": "python -m http.server 3000",
+    "serve": "node -e \"const http=require('http'), fs=require('fs'), path=require('path'); http.createServer((req,res)=>{ let file = path.join(__dirname, req.url === '/' ? 'index.html' : req.url); fs.readFile(file, (err,data)=>{ if(err){ res.writeHead(404); res.end('Not found'); return; } const ext = path.extname(file); const mime = {'.html':'text/html','.css':'text/css','.js':'application/javascript','.json':'application/json'}[ext] || 'text/plain'; res.writeHead(200, {'Content-Type': mime}); res.end(data); }); }).listen(3000, ()=>console.log('23 FAMILY сайт запущен: http://localhost:3000'));\""
+  },
+  "keywords": [
+    "high-heels",
+    "dance-studio",
+    "23family",
+    "moscow",
+    "choreo"
+  ],
+  "author": "23 FAMILY",
+  "license": "MIT"
+}
