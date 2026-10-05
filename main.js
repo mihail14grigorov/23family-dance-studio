@@ -834,3 +834,58 @@ function initQuickBookingButtons() {
     });
   });
 }
+
+// ============================================
+// Crystal Glow / Sparkle Title Hover Animation
+// Adapted from Originkit React/Framer Motion → Vanilla JS
+// ============================================
+function initSparkleTitle() {
+  const titleEl = document.getElementById('sparkleTitle');
+  if (!titleEl) return;
+
+  const glareLayer = titleEl.querySelector('.sparkle-text-glare');
+  let glareAnimId = null;
+
+  titleEl.addEventListener('mouseenter', () => {
+    titleEl.classList.add('is-hovered');
+
+    // Animate --sparkle-hover from current to 1
+    titleEl.style.setProperty('--sparkle-hover', '1');
+
+    // Animate glare sweep: --sparkle-pos from 0 to 1
+    if (glareAnimId) cancelAnimationFrame(glareAnimId);
+    const duration = 1000; // 1 second sweep
+    const start = performance.now();
+
+    function animateGlare(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      titleEl.style.setProperty('--sparkle-pos', String(progress));
+      if (progress < 1) {
+        glareAnimId = requestAnimationFrame(animateGlare);
+      }
+    }
+    glareAnimId = requestAnimationFrame(animateGlare);
+  });
+
+  titleEl.addEventListener('mouseleave', () => {
+    titleEl.classList.remove('is-hovered');
+    titleEl.style.setProperty('--sparkle-hover', '0.4');
+    titleEl.style.setProperty('--sparkle-pos', '0');
+    if (glareAnimId) {
+      cancelAnimationFrame(glareAnimId);
+      glareAnimId = null;
+    }
+  });
+
+  // Optional: tap/click effect (quick pulse)
+  titleEl.addEventListener('mousedown', () => {
+    titleEl.style.setProperty('--sparkle-hover', '0');
+  });
+  titleEl.addEventListener('mouseup', () => {
+    titleEl.style.setProperty('--sparkle-hover', '1');
+  });
+}
+
+// Initialize sparkle title on DOM load
+document.addEventListener('DOMContentLoaded', initSparkleTitle);

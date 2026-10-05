@@ -245,3 +245,134 @@ body {
 .animate-pulse-subtle {
   animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+
+/* ============================================
+   Crystal Glow / Sparkle Title Animation
+   Adapted from Originkit SparkleButton (React/Framer Motion → Vanilla CSS/JS)
+   ============================================ */
+
+.sparkle-title {
+  --sparkle-font-size: 72px;
+  --sparkle-color: #5C0101;
+  --sparkle-shadow: #D2CCCC;
+  --sparkle-glare: rgba(255, 255, 255, 0.75);
+  --sparkle-hover: 0.4;
+  --sparkle-pos: 0;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: default;
+  line-height: 0.92;
+}
+
+/* Responsive font sizes */
+@media (min-width: 640px) {
+  .sparkle-title { --sparkle-font-size: 90px; }
+}
+@media (min-width: 1280px) {
+  .sparkle-title { --sparkle-font-size: 110px; }
+}
+
+/* Shared text styles for both layers */
+.sparkle-text-shadow,
+.sparkle-text-glare {
+  font-size: var(--sparkle-font-size);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 0.92;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+/* Shadow layer: invisible text + text-shadow for 3D depth */
+.sparkle-text-shadow {
+  color: transparent;
+  text-shadow:
+    calc(var(--sparkle-hover) * (var(--sparkle-font-size) * 0)) calc(var(--sparkle-hover) * (var(--sparkle-font-size) * 0)) var(--sparkle-shadow),
+    calc(var(--sparkle-hover) * -1px) calc(var(--sparkle-hover) * 1px) var(--sparkle-shadow),
+    calc(var(--sparkle-hover) * -2px) calc(var(--sparkle-hover) * 2px) var(--sparkle-shadow),
+    calc(var(--sparkle-hover) * -3px) calc(var(--sparkle-hover) * 3px) var(--sparkle-shadow),
+    calc(var(--sparkle-hover) * -4px) calc(var(--sparkle-hover) * 4px) var(--sparkle-shadow),
+    calc(var(--sparkle-hover) * -5px) calc(var(--sparkle-hover) * 5px) var(--sparkle-shadow),
+    calc(var(--sparkle-hover) * -6px) calc(var(--sparkle-hover) * 6px) var(--sparkle-shadow);
+  transform: translate(
+    calc(var(--sparkle-hover) * 6px),
+    calc(var(--sparkle-hover) * -6px)
+  );
+  transition: text-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Glare layer: gradient sweep over text color */
+.sparkle-text-glare {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: linear-gradient(
+    108deg,
+    transparent 0%,
+    transparent 55%,
+    var(--sparkle-glare) 55%,
+    var(--sparkle-glare) 60%,
+    transparent 60%,
+    transparent 70%,
+    var(--sparkle-glare) 70%,
+    var(--sparkle-glare) 85%,
+    transparent 85%
+  );
+  background-size: 200% 100%;
+  background-position: calc(var(--sparkle-pos) * -200%) 0%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  z-index: 2;
+  text-shadow: none;
+  transition: none;
+}
+
+/* When NOT hovered, show solid brand color via background */
+.sparkle-title:not(.is-hovered) .sparkle-text-glare {
+  background: var(--sparkle-color);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Sparkle SVG stars */
+.sparkle-svg {
+  position: absolute;
+  z-index: 3;
+  width: calc(var(--sparkle-font-size) * 0.45);
+  aspect-ratio: 1;
+  pointer-events: none;
+  top: calc(var(--y, 50) * 1%);
+  left: calc(var(--x, 0) * 1%);
+  transform: translate(-50%, -50%) scale(0);
+  color: var(--sparkle-glare);
+  opacity: 0;
+}
+
+.sparkle-title.is-hovered .sparkle-svg {
+  animation: sparkleAppear 0.75s calc((var(--delay-step) * var(--d)) * 1s) both;
+}
+
+@keyframes sparkleAppear {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(var(--s, 1));
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+}
